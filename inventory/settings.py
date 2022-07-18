@@ -28,7 +28,7 @@ SECRET_KEY = 'cf+354(izuf2jh7(f*u%npk!2)i1!#(em+63^q)--oo+a*q*qb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1:8008']
+ALLOWED_HOSTS = ['gestionstock228.herokuapp.com','localhost','127.0.0.1:8008']
 
 
 # Application definition
@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'inventory.urls'
