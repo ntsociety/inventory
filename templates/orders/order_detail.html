@@ -1,0 +1,72 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Product List{% endblock title %}
+
+
+
+{% block content %}
+<div class="container">
+    <div class="col-md-12 card">
+        <div class="card-body">
+            <h4 class="box-title">Détail Product</h4>
+        </div>
+        <div class="row my-4">
+            <div class="card-body-- col-md-6">
+                <aside class="">
+                    <article class="gallery-wrap">
+                        <h2 class="title">Nom : {{ single_order.product.product_name }}</h2>
+
+                        <div class="mb-3"> 
+                            <var class="price h4">Prix : {{single_order.product.price}} FCFA</var> 
+                        </div> 
+                        
+                        <p>Description : {{ single_order.product.description }}</p>
+                        <p>Client : {{ single_order.product.supplier }}</p>
+                        <p>Quantité : {{ single_order.quantity }}</p>
+                        <p class="price h4">Prix total à payer : {{ single_order.sub_total }} FCFA</p>
+
+                        {% if single_order.product.stock <= 0 %}
+                        <h5 class="text-danger">pas de stock</h5>
+                        {% else %}
+                        <p>Total en Stock : {{ single_order.product.stock }}</p>
+                        {% endif%}
+                        
+                        <p>Catégorie : {{ single_order.product.category }}</p>
+
+                    </article> <!-- gallery-wrap .end// -->
+                    <br><br>
+                    <a href="{% url 'edit_order' single_order.id %}" class="title btn btn-primary"> <i class="fa-solid fa-pen-to-square"></i>  Modifier</a>
+                    <a href="{% url 'order_delete' single_order.id %}" onclick="return confirm('Ëtes-vous sûr de supprimer ça?')" class="title btn btn-danger">Supprimer</a>
+                    
+                    
+                </aside>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body--">
+                        <aside class="">
+                            <article class="gallery-wrap">
+                                <div class="img-big-wrap mainImage">
+                                    {% if single_order.product.images%}
+                                    <center><img src="{{ single_order.product.images.url }}"></center>
+                                    {% else%}
+                                    {% endif%}
+                                </div> <!-- img-big-wrap.// -->
+                            </article> <!-- gallery-wrap .end// -->
+                            
+                        </aside>
+                    </div>
+
+                    
+                </div> <!-- /.card -->
+            </div>  <!-- /.col-lg-8 -->
+            
+            
+
+            
+        </div>
+    </div>
+</div>
+{% endblock content %}

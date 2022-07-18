@@ -1,0 +1,21 @@
+{% extends 'layout/base.html' %}
+{% comment %} {% block title %}Register Page{% endblock %} {% endcomment %}
+
+{% block content %}
+<div class="row my-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="border p-3 bg-white">
+            <h4>Register Page</h4>
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form }}
+                {% comment %} {{ form }} {% endcomment %}
+                <input class="btn btn-success" type="submit" value="Register">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

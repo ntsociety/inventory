@@ -1,0 +1,39 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Create Product{% endblock title %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% if user.is_authenticated and user.is_staff and user.is_superuser %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Create Product</strong>
+            </div>
+            <div class="card-body">
+                <!-- Credit Card -->
+                <div id="pay-invoice">
+                    <div class="card-body">
+                        <form action="#" method="post" novalidate="novalidate" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{form|crispy}}
+                            {{form.media}}
+                            <div>
+                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                    <span id="payment-button-amount">Ajouter</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- .card -->
+
+    </div><!--/.col-->
+</div>
+{% else%}
+<strong class="card-title">Vous n'êtes pas Admin</strong>
+{% endif%}
+{% endblock content %}

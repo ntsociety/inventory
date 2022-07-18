@@ -1,0 +1,58 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Product List{% endblock title %}
+
+
+{% block content %}
+<div class="container">
+    <div class="col-md-12 card">
+        <div class="card-body">
+            <h4 class="box-title">Détail Product</h4>
+        </div>
+        <div class="row my-4">
+            <div class="card-body-- col-md-6">
+                <aside class="">
+                    <article class="gallery-wrap">
+                        <h2 class="title">Nom : {{ single_supplier.first_name }}</h2>
+                        <h2 class="title">Prénom : {{ single_supplier.last_name }}</h2>
+                        <h2 class="title">Téléphone : {{ single_supplier.phone }}</h2>
+                        <h2 class="title">Adresse : {{ single_supplier.address }}</h2>
+                        <h2 class="title">Email : {{ single_supplier.email }}</h2>
+
+                    </article> <!-- gallery-wrap .end// -->
+                    <br><br>
+                    <a href="{% url 'edit_supplier' single_supplier.id %}" class="title btn btn-primary">Modifier</a>
+                    <a href="{% url 'supplier_delete' single_supplier.id %}" onclick="return confirm('Ëtes-vous sûr de supprimer ça?')" class="title btn btn-danger"> Supprimer</a>
+                    
+                    
+                </aside>
+            </div>
+
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body--">
+                        <aside class="">
+                            <article class="gallery-wrap">
+                                <div class="img-big-wrap mainImage">
+                                    {% if single_supplier.image_profil%}
+                                    <center><img src="{{ single_supplier.image_profil.url }}"></center>
+                                    {% else%}
+                                    {% endif%}
+                                </div> <!-- img-big-wrap.// -->
+                            </article> <!-- gallery-wrap .end// -->
+                            
+                        </aside>
+                    </div>
+
+                    
+                </div> <!-- /.card -->
+            </div>  <!-- /.col-lg-8 -->
+            
+            
+
+            
+        </div>
+    </div>
+</div>
+{% endblock content %}

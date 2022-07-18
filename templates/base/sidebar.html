@@ -1,0 +1,95 @@
+<aside id="left-panel" class="left-panel">
+    {% if user.is_authenticated %}
+    <nav class="navbar navbar-expand-sm navbar-default">
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="{% url 'dashboard' %}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                </li>
+                <li class="menu-title">My Store</li><!-- /.menu-title -->
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-paper-plane"></i>Fournisseurs</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'create_supplier' %}">Ajouter</a></li>
+                        <li><i class="fa-solid fa-eye"></i><a href="{% url 'supplier' %}">Voir</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Clients</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'create_customer'%}">Ajouter</a></li>
+                        <li><i class="fa-solid fa-eye"></i><a href="{% url 'customer'%}">Voir</a></li>
+                    </ul>
+                </li>
+
+                {% comment %} <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-archive"></i>Season</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-id-card-o"></i><a href="">Ajouter</a></li>
+                        <li><i class="fa-solid fa-eye"></i><a href="">Voir</a></li>
+                    </ul>
+                </li> {% endcomment %}
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-chevron-circle-down"></i>Catégories</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'create_catego' %}">Ajouter</a></li>
+                        <li><i class="fa-solid fa-eye"></i><a href="{% url 'category_list' %}">Voir</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa-brands fa-product-hunt"></i> Products</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'create_product' %}">Ajouter</a></li>
+                        <li><i class="fa-solid fa-eye"></i><a href="{% url 'product' %}">Voir</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cart-plus"></i>Commandes</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'create_order'%}">Ajouter</a></li>
+                        <li><i class="fa-solid fa-eye"></i><a href="{% url 'order'%}">Voir</a></li>
+                    </ul>
+                </li>
+
+                {% comment %} <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-truck"></i>Delivery</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-id-card-o"></i><a href="">Ajouter</a></li>
+                        <li><i class="fa-solid fa-eye"></i><a href="">Voir</a></li>
+                    </ul>
+                </li> {% endcomment %}
+                
+                    <i class="fa-solid fa-eye"></i>
+                      <i class="fa-solid fa-pen-to-square"></i>
+                      <i class="fa-solid fa-user-pen"></i>
+                      <i class="fa-solid fa-cart-arrow-down"></i>
+                      <i class="fa-solid fa-arrow-left"></i>
+                      
+                
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+    {% else%}
+    <nav class="navbar navbar-expand-sm navbar-default">
+        <div id="main-menu" class="main-menu collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                
+                <li class="menu-title">My Store</li><!-- /.menu-title -->
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-paper-plane"></i>Supplier</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'user-register' %}">S'inscrire</a></li>
+                        <li><i class="fa-solid fa-eye"></i><a href="{% url 'user-login' %}">connexion</a></li>
+                    </ul>
+                </li>
+
+                
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+    {% endif %}
+</aside>

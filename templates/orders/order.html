@@ -1,0 +1,111 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Order List{% endblock title %}
+
+
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                
+                <div class="container-fluid bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    
+                    <div class="">
+                        {% include 'layout/messages.html'%}
+                        <h4><a class="text-white text-capitalize ps-3 " href="#">Order List</a><span class="text-white bg-primary nav-link-text ms-7" style="padding:5px">{{ order_count }} Commandes</span></h4>
+                    </div>
+                    <div class="">
+                        <h4><a class="text-white text-capitalize ps-3" href="{% url 'export_data_order'%}">Exporté</a></h4>
+                    </div>
+                    {% comment %} <form class="d-flex search" action="{% url 'search_order'%}" method="GET">
+                        <input class="form-control me-2" type="search" style="width:60%;" placeholder="Search" name="keyword">
+                        <button class="btn btn-outline-primary" type="submit">Search</button>
+                    </form> {% endcomment %}
+                    
+                        
+                    </div>
+                </div>
+            </nav>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="serial">#</th>
+                                <th>Client</th>
+                                <th>Product</th>
+                                <th>prix Unitaire</th>
+                                <th>Quantité</th>
+                                <th>Prix Total</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if order %}
+                            {% for order in order %}
+                            <tr>
+                                <td class="serial">{{ forloop.counter }}</td>
+                                <td><a href="#">{{ order.customer.first_name }}</a></td>
+                                <td><a href="{% url 'order_detail' order.id %}">{{ order.product }}</a></td>
+                                <td>{{ order.product.price }}</td>
+                                <td>{{ order.quantity }}</td>
+                                <td>{{ order.sub_total }}</td>
+                                <td>{{ order.created_date }}</td>
+                                <td>
+                                    {% if order.status == 'pending' %}
+                                        <a class="btn btn-warning" href="">{{ order.status }}</a>
+                                    {% elif order.status == 'decline' %}
+                                        <a class="btn btn-danger" href="">{{ order.status }}</a>
+                                    {% elif order.status == 'complete' %}
+                                        <a class="btn btn-success" href="">{{ order.status }}</a>
+                                    {% elif order.status == 'approved' %}
+                                        <a class="btn btn-primary" href="">{{ order.status }}</a>
+                                    {% elif order.status == 'bulk' %}
+                                        <a class="btn btn-secondary" href="">{{ order.status }}</a>
+                                    {% else %}
+                                        <a class="btn btn-info" href="">{{ order.status }}</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>No Order Data</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                    <nav class="mt-4" aria-label="Page navigation sample">
+                        {% if order.has_other_pages %}
+                          <ul class="pagination">
+                                {% if order.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{order.previous_page_number}}"><i class="fa-solid fa-circle-chevron-left"></i></a></li>
+                                {% else %}
+                                <li class="page-item disabled"><a class="page-link" href="#"><i class="fa-solid fa-circle-chevron-left"></i></a></li>
+                                {% endif %}
+                    
+                                {% for i in order.paginator.page_range %}
+                                    {% if order.number == i %}
+                                    <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                                    {% endif %}
+                            {% endfor %}
+                    
+                                {% if order.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{order.next_page_number}}"><i class="fa-solid fa-square-chevron-right"></i></a></li>
+                                {% else %}
+                                    <li class="page-item disabled"><a class="page-link" href="#"><i class="fa-solid fa-square-chevron-right"></i></a></li>
+                                {% endif %}
+                          </ul>
+                        {% endif %}
+                    </nav>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+    
+</div>
+{% endblock content %}

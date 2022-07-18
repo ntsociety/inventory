@@ -1,0 +1,79 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Customer List{% endblock title %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                {% include 'layout/messages.html'%}
+                <h4 class="box-title">customer List <span style="padding:10px; border-radius:100%" class="text-white bg-primary nav-link-text ms-4 page-item">{{ customer_count }}</span></h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="serial">id</th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Address</th>
+                                <th>phone</th>
+                                <th>email</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if customer %}
+                            {% for customer in customer %}
+                            <tr>
+                                <td class="serial">{{ forloop.counter }}</td>
+                                <td><a href="{% url 'customer_detail' customer.id %}" class="title">{{ customer.first_name }}</a></td>
+                                <td>{{ customer.last_name }}</td>
+                                <td>{{ customer.address }}</td>
+                                <td>{{ customer.phone }}</td>
+                                <td>{{ customer.email }}</td>
+                                
+                                <td>{{ customer.created_date }}</td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>No customer Data</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                    <nav class="mt-4" aria-label="Page navigation sample">
+                        {% if customer.has_other_pages %}
+                          <ul class="pagination">
+                                {% if customer.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{customer.previous_page_number}}"><i class="fa-solid fa-circle-chevron-left"></i></a></li>
+                                {% else %}
+                                <li class="page-item disabled"><a class="page-link" href="#"><i class="fa-solid fa-circle-chevron-left"></i></a></li>
+                                {% endif %}
+                    
+                                {% for i in customer.paginator.page_range %}
+                                    {% if customer.number == i %}
+                                    <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                                    {% endif %}
+                            {% endfor %}
+                    
+                                {% if customer.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{customer.next_page_number}}"><i class="fa-solid fa-square-chevron-right"></i></a></li>
+                                {% else %}
+                                    <li class="page-item disabled"><a class="page-link" href="#"><i class="fa-solid fa-square-chevron-right"></i></a></li>
+                                {% endif %}
+                          </ul>
+                        {% endif %}
+                    </nav>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+    
+</div>
+{% endblock content %}

@@ -1,0 +1,98 @@
+{% extends 'layout/base.html' %}
+{% load static%}
+{% block title %}Product List{% endblock title %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="col-md-12 card">
+        <div class="card-body">
+            <h4 class="box-title">Détail Product</h4>
+            
+        </div>
+        <div class="row my-4">
+            <div class="card-body-- col-md-6">
+                <aside class="">
+                    <article class="gallery-wrap">
+                        <h2 class="title">Nom : {{ single_product.product_name }}</h2>
+
+                        <div class="mb-3"> 
+                            <var class="price h4">Prix : {{single_product.price}} FCFA</var> 
+                        </div> 
+                        
+                        <p>Description : {{ single_product.description }}</p>
+
+                        {% if single_product.stock < 0 %}
+                        <h5 class="text-danger">pas de stock</h5>
+                        {% else %}
+                        <p>Stock : {{ single_product.stock_initial }}</p>
+                        {% if single_product.add_stock  > 0 %}
+                        <p><td>Stock Rajouter : {{ single_product.add_stock }}</td></p>
+                        {% endif %}
+                        
+                        <p>Stock restant : {{ single_product.stock }}</p>
+                        {% if single_product.sell > 0 %}
+                        <p><p>Quantité vendu : {{ single_product.sell }}</p>
+                        {% else%}
+                        <p>Pas de Vente </p>
+                        {% endif %}
+                        {% if single_product.sell > 0 %}
+                        <p>Prix Total de Vente : {{ single_product.prix_sell }} FCFA</p>
+                        {% endif %}
+                        {% if single_product.variation != 0 %}
+                        <p><td>Variation : {{ single_product.variation }}</td></p>
+                        {% endif %}
+                        
+                        {% endif%}
+
+                        <p>Fournisseur : {{ single_product.supplier }}</p>
+                        <p>Catégorie : {{ single_product.category }}</p>
+
+                    </article> <!-- gallery-wrap .end// -->
+                    <br><br>
+                    <a href="{% url 'edit_product' single_product.id %}" class="title btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Modifier</a>
+                    <a href="{% url 'product_delete' single_product.id %}" onclick="return confirm('Ëtes-vous sûr de supprimer ça?')" class="title btn btn-danger"> Supprimer</a>
+                    
+                    
+                </aside>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body--">
+                        <aside class="">
+                            <article class="gallery-wrap">
+                                <div class="img-big-wrap mainImage">
+                                    {% if single_product.images%}
+                                    <center><img src="{{ single_product.images.url }}"></center>
+                                    {% else%}
+                                    {% endif%}
+                                </div> <!-- img-big-wrap.// -->
+                            </article> <!-- gallery-wrap .end// -->
+                            
+                        </aside>
+                    </div>
+
+                    
+                </div> <!-- /.card -->
+            </div>  <!-- /.col-lg-8 -->
+            
+            
+            
+
+            
+        </div>
+    </div>
+</div>
+
+<style>
+    img {
+        max-width: 100%; }
+
+
+      
+</style>
+
+{% endblock content %}

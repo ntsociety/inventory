@@ -1,0 +1,84 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Supplier List{% endblock title %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                {% include 'layout/messages.html'%}
+                <h4 class="box-title">Supplier List <span style="padding:10px; border-radius:100%" class="text-white bg-primary nav-link-text ms-4 page-item">{{ supplier_count }}</span></h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="serial">id</th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Address</th>
+                                <th>phone</th>
+                                <th>email</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if supplier %}
+                            {% for supplier in supplier %}
+                            <tr>
+                                <td class="serial">{{ forloop.counter }}</td>
+                                <td><a href="{% url 'supplier_detail' supplier.id %}" class="title">{{ supplier.first_name }}</a></td>
+                                <td>{{ supplier.last_name }}</td>
+                                <td>{{ supplier.address }}</td>
+                                <td>{{ supplier.phone }}</td>
+                                <td>{{ supplier.email }}</td>
+                               
+                                <td>{{ supplier.created_date }}</td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>No Supplier Data</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                    <nav class="mt-4" aria-label="Page navigation sample">
+                        {% if supplier.has_other_pages %}
+                          <ul class="pagination">
+                                {% if supplier.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{supplier.previous_page_number}}"><i class="fa-solid fa-circle-chevron-left"></i></a></li>
+                                {% else %}
+                                <li class="page-item disabled"><a class="page-link" href="#"><i class="fa-solid fa-circle-chevron-left"></i></a></li>
+                                {% endif %}
+                    
+                                {% for i in supplier.paginator.page_range %}
+                                    {% if supplier.number == i %}
+                                    <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                                    {% endif %}
+                            {% endfor %}
+                    
+                                {% if supplier.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{supplier.next_page_number}}"><i class="fa-solid fa-square-chevron-right"></i></a></li>
+                                {% else %}
+                                    <li class="page-item disabled"><a class="page-link" href="#"><i class="fa-solid fa-square-chevron-right"></i></a></li>
+                                {% endif %}
+                          </ul>
+                        {% endif %}
+                    </nav>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+    
+</div>
+<script>
+    setTimeout(function() {
+      $('#message').fadeOut('slow');
+  }, 4000)
+</script>
+{% endblock content %}

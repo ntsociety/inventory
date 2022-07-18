@@ -1,0 +1,59 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Modifier Client{% endblock title %}
+
+
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Create Customer</strong>
+            </div>
+            <div class="card-body">
+                <!-- Credit Card -->
+                <div id="pay-invoice">
+                    <div class="card-body">
+                        <form action="#" method="post" novalidate="novalidate" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="first_name" class="control-label mb-1">Nom</label>
+                                {{ form.first_name }}
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name" class="control-label mb-1">Prénom</label>
+                                {{ form.last_name }}
+                            </div>
+                            <div class="form-group">
+                                <label for="address" class="control-label mb-1">Address</label>
+                                {{ form.address }}
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="control-label mb-1">Email</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="control-label mb-1">téléphone</label>
+                                {{ form.phone }}
+                            </div>
+                            <div class="form-group">
+                                <label for="image_profil" class="control-label mb-1">Photo</label>
+                                {{ form.image_profil }}
+                            </div>
+                            
+                            <div>
+                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                    <span id="payment-button-amount">Modifier</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- .card -->
+
+    </div><!--/.col-->
+</div>
+{% endblock content %}

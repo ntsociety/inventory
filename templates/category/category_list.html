@@ -1,0 +1,74 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Product List{% endblock title %}
+
+
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">categorie Liste </h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="serial">ID</th>
+                                <th>Nom</th>
+                                <th>Description</th>
+                                <th>Image</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if category %}
+                            {% for category in category %}
+                            <tr>
+                                <td class="serial">{{ forloop.counter }}</td>
+                                <td><a href="{% url 'detail_catego' category.id %}">{{ category.category_name }}</a></td>
+                                <td>{{ category.description }}</td>
+                                {% if category.cat_image%}
+                                <td><img src="{{ category.cat_image.url}}" class="img-thumbnail" width="40px" style="border-radius:50px"></td>
+                                {% endif%}
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>Pas de Catégorie</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                    <nav class="mt-4" aria-label="Page navigation sample">
+                        {% if category.has_other_pages %}
+                          <ul class="pagination">
+                                {% if category.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{category.previous_page_number}}"><i class="fa-solid fa-circle-chevron-left"></i></a></li>
+                                {% else %}
+                                <li class="page-item disabled"><a class="page-link" href="#"><i class="fa-solid fa-circle-chevron-left"></i></a></li>
+                                {% endif %}
+                    
+                                {% for i in category.paginator.page_range %}
+                                    {% if category.number == i %}
+                                    <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                                    {% endif %}
+                            {% endfor %}
+                    
+                                {% if category.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{category.next_page_number}}"><i class="fa-solid fa-square-chevron-right"></i></a></li>
+                                {% else %}
+                                    <li class="page-item disabled"><a class="page-link" href="#"><i class="fa-solid fa-square-chevron-right"></i></a></li>
+                                {% endif %}
+                          </ul>
+                        {% endif %}
+                    </nav>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+    
+</div>
+{% endblock content %}

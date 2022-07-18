@@ -1,0 +1,61 @@
+{% extends 'dashboard/layout.html' %}
+{% block content%}
+{% load static%}
+
+
+
+
+
+<!--Table-->
+<div class="container">
+    <div class="row my-4">
+        <div class="col-md-8">
+            <table class="table bg-white p-3">
+                <thead class="bg-info">
+                    <tr class="text-white">
+                        <th scope="col">ID</th>
+                        <th scope="col">image</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">prix</th>
+                        <th scope="col">Order by</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>image path</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td> Broni</td>
+                        <td> 0 FCFA</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="border bg-info p-3">
+                <h4 class="text-white">Prix Total :</h4>
+                <dd class="text-right text-white">$69.97</dd>     
+            </div>
+            <a href="#" class="btn btn-primary btn-block"> Vendre un produit </a>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!--End Table-->
+
+
+
+
+
+
+
+{% endblock%}
