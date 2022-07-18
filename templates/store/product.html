@@ -30,6 +30,7 @@
 {% endblock breadcrumbs %} {% endcomment %}
 
 {% block content %}
+{% if user.is_authenticated and user.is_staff %}
 {% comment %} <div class="row">
     <div class="col-xl-12">
         <div class="card">
@@ -468,5 +469,5 @@
 
 
   </div>
-
+  {% endif %}
 {% endblock content %}

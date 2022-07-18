@@ -1,26 +1,21 @@
-{% extends 'partials/base.html' %}
-{% block title %}Customer Page{% endblock %}
+{% extends 'layout/base.html' %}
+{% comment %} {% block title %}Register Page{% endblock %} {% endcomment %}
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="row my-4">
-    <div class="col-md-4"></div>
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header bg-info text-white">
-                Customer Detail Page
-            </div>
-            <div class="row p-3">
-                <div class="col-md-8">
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ u_form|crispy }}
-                        {{ p_form|crispy }}
-                        <input class="btn btn-info" type="submit" value="Update">
-                    </form>
-                </div>
-            </div>
+    <div class="col-md-6 offset-md-3">
+        <div class="border p-3 bg-white">
+            <h4>Modifier Profile</h4>
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form | crispy}}
+                {% comment %} {{ form }} {% endcomment %}
+                <input class="btn btn-success" type="submit" value="Register">
+            </form>
         </div>
     </div>
 </div>
+
 
 {% endblock %}
