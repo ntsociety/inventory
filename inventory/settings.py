@@ -154,3 +154,7 @@ MESSAGE_TAGS = {
 LOGIN_REDIRECT_URL = 'dashboard'
 
 LOGIN_URL = 'user-login'
+
+#django-on-heroku
+import django_on_heroku
+django_on_heroku.settings(locals())
