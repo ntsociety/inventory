@@ -9,7 +9,7 @@
             <form method="POST">
                 {% csrf_token %}
                 {{ form | crispy}}
-                <input class="btn btn-success" type="submit" value="Login">
+                <input class="btn btn-success" type="submit" value="Login">&nbsp;&nbsp; Pas de compte ? <a href="{% url 'user-register' %}" class="text-body font-weight-bold px-0">S'inscrire</a>
             </form>
         </div>
     </div>

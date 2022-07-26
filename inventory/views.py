@@ -5,26 +5,30 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib import messages
 
+from store.views import customer, supplier
+
 
 
 @login_required(login_url='user-login')
 def dashboard(request):
-    product = Product.objects.order_by('-created_date')
-    products = Product.objects.all()
+    product = Product.objects.filter(user=request.user).order_by('-created_date')
+    products = Product.objects.filter(user=request.user)
     paginator = Paginator(product, 10)
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
-    total_product = Product.objects.count()
+    total_product = product.count()
     #order
-    order = Order.objects.order_by('-created_date')
+    order = Order.objects.filter(user=request.user).order_by('-created_date')
     paginator = Paginator(order, 10)
     page = request.GET.get('page')
     paged_orders = paginator.get_page(page)
-    total_order = Order.objects.count()
+    total_order = order.count()
     #customer
-    total_customer = Customer.objects.count()
+    customer = Customer.objects.filter(user=request.user)
+    total_customer = customer.count()
     #supplier
-    total_supplier = Supplier.objects.count()
+    supplier = Supplier.objects.filter(user=request.user)
+    total_supplier = supplier.count()
     
     
     #orders = Order.objects.all().order_by('-id')
@@ -45,7 +49,7 @@ def dashboard(request):
     return render(request, 'dashboard.html', context)
 
 def home(request):
-    products = Product.objects.all()
+    products = Product.objects.filter(user=request.user)
 
     # Get the reviews
     # reviews = None

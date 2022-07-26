@@ -13,6 +13,7 @@ def create_catego(request):
         if form.is_valid():
             category = form.save(commit=False)
             category.slug = slugify(category.category_name)
+            category.user = request.user
             category.save()
             messages.success(request, 'Catégorie crée avec succès !')
             return redirect('category_list')
@@ -25,7 +26,7 @@ def create_catego(request):
 
 @login_required(login_url='user-login')
 def category_list(request):
-    category = Category.objects.all('-created_date')
+    category = Category.objects.filter(user=request.user)
     paginator = Paginator(category, 4)
     page = request.GET.get('page')
     paged_orders = paginator.get_page(page)

@@ -5,7 +5,7 @@
 
 
 {% block content %}
-{% if user.is_authenticated and user.is_staff %}
+{% if user.is_authenticated %}
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
@@ -15,15 +15,15 @@
                     
                     <div class="">
                         {% include 'layout/messages.html'%}
-                        <h4><a class="text-white text-capitalize ps-3 " href="#">Order List</a><span class="text-white bg-primary nav-link-text ms-7" style="padding:5px">{{ order_count }} Commandes</span></h4>
+                        <h4><a class="text-white text-capitalize ps-3 " href="{% url 'order'%}">Order List</a><span class="text-white bg-primary nav-link-text ms-7" style="padding:5px">{{ order_count }} Commandes</span></h4>
                     </div>
                     <div class="">
                         <h4><a class="text-white text-capitalize ps-3" href="{% url 'export_data_order'%}">Exporté</a></h4>
                     </div>
-                    {% comment %} <form class="d-flex search" action="{% url 'search_order'%}" method="GET">
+                    <form class="d-flex search" action="{% url 'search_order'%}" method="GET">
                         <input class="form-control me-2" type="search" style="width:60%;" placeholder="Search" name="keyword">
                         <button class="btn btn-outline-primary" type="submit">Search</button>
-                    </form> {% endcomment %}
+                    </form>
                     
                         
                     </div>

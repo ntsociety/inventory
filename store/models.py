@@ -1,10 +1,13 @@
+from tkinter import CASCADE
 from django.db import models
 from category.models import Category
+from django.contrib.auth.models import User
 from django.urls import reverse
 
 # Create your models here.
 
 class Supplier(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone = models.CharField(max_length=255, blank=True, null=True)
@@ -24,6 +27,7 @@ class Supplier(models.Model):
 class Product(models.Model):
     product_name    = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=100, unique=True, null=True)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     description     = models.CharField(max_length=500, blank=True, null=True)
     price           = models.IntegerField()
     images          = models.ImageField(upload_to='photos/products', blank=True, null=True)
@@ -69,6 +73,7 @@ class Product(models.Model):
 
 
 class AddStocks(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     created_date    = models.DateTimeField(auto_now_add=True)
@@ -81,6 +86,7 @@ class AddStocks(models.Model):
     
     
 class Customer(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone = models.IntegerField()

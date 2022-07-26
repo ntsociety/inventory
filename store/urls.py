@@ -9,6 +9,7 @@ urlpatterns = [
     path('supplier/supplier_detail/<int:pk>/', views.supplier_detail, name='supplier_detail'),
     path('supplier/edit_supplier/<int:pk>/', views.edit_supplier, name='edit_supplier'),
     path('supplier/supplier_delete/<int:pk>/', views.supplier_delete, name='supplier_delete'),
+    path('search_supplier', views.search_supplier, name='search_supplier'),
     
     #partie customer
     path('customer/create_customer', views.create_customer, name='create_customer'),
@@ -16,6 +17,7 @@ urlpatterns = [
     path('customer/customer_detail/<int:pk>/', views.customer_detail, name='customer_detail'),
     path('customer/edit_customer/<int:pk>/', views.edit_customer, name='edit_customer'),
     path('customer/customer_delete/<int:pk>/', views.customer_delete, name='customer_delete'),
+    path('search_customer', views.search_customer, name='search_customer'),
     
     
     #search

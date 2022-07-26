@@ -45,12 +45,12 @@ class ProductForm(forms.ModelForm):
     price = forms.IntegerField(label='Prix', required=True,)
     stock_initial = forms.IntegerField(label='Stock iniatial', required=True,)
     images = forms.ImageField(label='Image', required=False,)
-    category = forms.ModelChoiceField(label='categorie',
-                                      queryset=Category.objects.all(), 
-                                      required=False,)
-    supplier = forms.ModelChoiceField(label='Fournisseur', 
-                                    queryset=Supplier.objects.all(),
-                                    required=False,)
+    # category = forms.ModelChoiceField(label='categorie',
+    #                                   queryset=Category.objects.all(), 
+    #                                   required=False,)
+    # supplier = forms.ModelChoiceField(label='Fournisseur', 
+    #                                 queryset=Supplier.objects.all(),
+    #                                 required=False,)
     
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
@@ -59,11 +59,17 @@ class ProductForm(forms.ModelForm):
         self.fields['price'].widget.attrs['placeholder'] = 'Enter prix'
         self.fields['images'].widget.attrs['placeholder'] = 'images'
         self.fields['stock_initial'].widget.attrs['placeholder'] = 'stock initial'
-        self.fields['category'].widget.attrs['placeholder'] = 'category'
-        self.fields['supplier'].widget.attrs['placeholder'] = 'supplier'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
-           
+    
+    # def __init__(self, user, *args, **kwargs):
+    #     super(ProductForm, self).__init__(*args, **kwargs)
+    #     self.fields['category'].queryset=Category.objects.filter(user=user)
+    
+    def __init__(self, user, *args, **kwargs):
+        super(ProductForm, self).__init__(*args, **kwargs)
+        self.fields['supplier'].queryset=Supplier.objects.filter(user=user)
+        self.fields['category'].queryset=Category.objects.filter(user=user)
             
     
     

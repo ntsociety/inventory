@@ -26,6 +26,7 @@ def create_order(request):
             quantity = form.cleaned_data['quantity']
             status = form.cleaned_data['status']
             order = Order.objects.create(customer=customer, product=product, quantity=quantity, status=status)
+            order.user = request.user
             order.save()
             # Reduce the quantity of the sold products
             order_items = Order.objects.get(id=order.id)
@@ -47,16 +48,27 @@ def create_order(request):
 #create orders
 @login_required(login_url='user-login') 
 def addCart(request):
-    product = Product.objects.all()
-    customer = Customer.objects.all()
+    product = Product.objects.filter(user=request.user)
+    customer = Customer.objects.filter(user=request.user)
+    for p in product:
+        pass
+        #print(p.product_name)
+    for c in customer:
+        pass
+        #print(c.first_name)
     order = Order.objects.all()
     
     if request.method == 'POST':
-        product = Product.objects.get(product_name=request.POST['product'])
-        customer = Customer.objects.get(first_name=request.POST['customer'])
+        product = Product.objects.filter(user=request.user).get(product_name=request.POST['product'])
+        customer = Customer.objects.filter(user=request.user).get(first_name=request.POST['customer'])
         quantity = request.POST['quantity']
         status = request.POST['status']
         order = Order.objects.create(product=product, customer=customer, quantity=quantity, status=status)
+        order.product_name = product.product_name
+        order.customer_name = customer.first_name
+        print(order.product_name)
+        print(order.customer_name)
+        order.user = request.user
         order.save()
         
         # Reduce the quantity of the sold products
@@ -81,7 +93,7 @@ def addCart(request):
 
 @login_required(login_url='user-login')
 def order(request):
-    order = Order.objects.order_by('-created_date')
+    order = Order.objects.filter(user=request.user).order_by('-created_date')
     for o in order:
         print(o.sub_total)
     order_count = order.count()
@@ -105,7 +117,7 @@ def order(request):
 
 @login_required(login_url='user-login') 
 def order_detail(request, pk):
-    single_order = Order.objects.get(id=pk)
+    single_order = Order.objects.filter(user=request.user).get(id=pk)
     context = {
         'single_order': single_order
     }
@@ -114,7 +126,7 @@ def order_detail(request, pk):
 
 @login_required(login_url='user-login')
 def edit_order(request, pk):
-    item = Order.objects.get(id=pk)
+    item = Order.objects.filter(user=request.user).get(id=pk)
     if request.method == 'POST':
         form = OrderForm(request.POST, instance=item)
         if form.is_valid():
@@ -148,11 +160,11 @@ def search_order(request):
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']
         if keyword:
-            order = Order.objects.order_by('-created_date').filter(product__some_product_name__icontains=keyword)
-            #product_count = product.count()
+            order = Order.objects.order_by('-created_date').filter(Q(customer_name__icontains=keyword) | Q(product_name__icontains=keyword), user=request.user)
+            order_count = order.count()
     context = {
         'order': order,
-        #'product_count': product_count,
+        'order_count': order_count,
     }
     return render(request, 'orders/order.html', context)
 
@@ -161,7 +173,7 @@ def search_order(request):
 #export data to excel
 
 def export_data_order(request):
-    orders = Order.objects.all()
+    orders = Order.objects.filter(user=request.user)
     data = []
     for order in orders:
         msg = "Commandes exportés avec succès, stocké dans le dossier commande"

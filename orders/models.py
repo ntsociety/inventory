@@ -1,6 +1,7 @@
 
 from django.db import models
 from store.models import Product, Customer
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -15,8 +16,11 @@ STATUS_CHOICE = (
 
 
 class Order(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True)
+    product_name = models.CharField(max_length=100, blank=True, null=True)
+    customer_name = models.CharField(max_length=100, blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICE, default='created')
     quantity = models.IntegerField()
     sub_total = models.IntegerField(null=True)

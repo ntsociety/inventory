@@ -4,14 +4,25 @@
 
 
 {% block content %}
-{% if user.is_authenticated and user.is_staff %}
+{% if user.is_authenticated %}
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
-            <div class="card-body">
-                {% include 'layout/messages.html'%}
-                <h4 class="box-title">Supplier List <span style="padding:10px; border-radius:100%" class="text-white bg-primary nav-link-text ms-4 page-item">{{ supplier_count }}</span></h4>
-            </div>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <div class="">
+                      {% include 'layout/messages.html'%}
+                      <h4 ><a class="text-white text-capitalize ps-3 box-title" href="{% url 'supplier'%}">Supplier List </a><span style="padding:10px; border-radius:100%" class="text-white bg-primary nav-link-text ms-4 page-item">{{ supplier_count }}</span></h4>
+                    </div>
+                    
+                    <form class="d-flex search" action="{% url 'search_supplier'%}" method="GET">
+                      <input class="form-control me-2" type="search" style="width:60%;" placeholder="Rechercher Produit" name="keyword">
+                      <button class="btn btn-primary" type="submit">Recherche</button>
+                    </form>
+                    
+                    
+                </div>
+              </nav>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h">
                     <table class="table ">
@@ -42,6 +53,7 @@
                             {% endfor %}
                             {% else %}
                                 <tr><td>No Supplier Data</td></tr>
+                                <h4><a class="text-white text-capitalize ps-3" href="{% url 'create_supplier'%}">Crée un Fournisseur</a></h4>
                             {% endif %}
                         </tbody>
                     </table>

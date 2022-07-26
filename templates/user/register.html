@@ -11,7 +11,7 @@
                 {% csrf_token %}
                 {{ form }}
                 {% comment %} {{ form }} {% endcomment %}
-                <input class="btn btn-success" type="submit" value="Register">
+                <input class="btn btn-success" type="submit" value="Register">&nbsp;&nbsp; Avez-vous déjà un compte ? <a href="{% url 'user-login' %}" class="text-body font-weight-bold px-0">Se connecter</a>
             </form>
         </div>
     </div>
